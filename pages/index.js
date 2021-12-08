@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import { authentication } from '../lib/firebase';
 import { useAuth } from '../lib/auth';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const auth = useAuth();
+  const { user, signinWithGithub, signout } = useAuth();
+  console.log(user);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,12 +17,12 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Misdias</h1>
-        <h4>{auth?.user?.user?.displayName}</h4>
+        <h4>{user?.displayName}</h4>
         <h5>
-          {auth.user ? (
-            <button onClick={(e) => auth.signout()}>sign out</button>
+          {user ? (
+            <button onClick={(e) => signout()}>sign out</button>
           ) : (
-            <button onClick={(e) => auth.signinWithGithub()}>sign in</button>
+            <button onClick={(e) => signinWithGithub()}>sign in</button>
           )}
         </h5>
 
